@@ -1,0 +1,87 @@
+.sliderContainer {
+  display: grid;
+  grid-gap: 0 7px;
+  color: white;
+  font-size: 1rem;
+  /* position: relative; */
+}
+.sliderContainer button {
+  background: transparent;
+  outline: none;
+  color: rgba(255, 255, 255, 0.589);
+  padding: 0;
+}
+.cast {
+  grid-template-columns: 20px repeat(6, 1fr) 20px;
+}
+
+.regular {
+  grid-template-columns: 20px repeat(5, 1fr) 20px;
+}
+.sliderContainer button:hover,
+.sliderContainer button:active {
+  cursor: pointer;
+}
+.backwardButton {
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}
+.forwardButton {
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}
+.carouselContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+.title {
+  align-self: flex-start;
+  padding-left: 27px;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 400;
+  font-family: Roboto;
+}
+.title .explore {
+  font-size: 0.8rem;
+  color: #2296f3;
+  padding-left: 0.5rem;
+}
+.visable {
+  visibility: visible;
+}
+.hidden {
+  visibility: hidden;
+}
+
+@media (max-width: 1024px) {
+  .cast {
+    grid-template-columns: 20px repeat(5, 1fr) 20px;
+  }
+
+  .regular {
+    grid-template-columns: 20px repeat(4, 1fr) 20px;
+  }
+}
+@media (max-width: 769px) {
+  .cast {
+    grid-template-columns: 20px repeat(4, 1fr) 20px;
+  }
+
+  .regular {
+    grid-template-columns: 20px repeat(3, 1fr) 20px;
+  }
+}
+@media (max-width: 640px) {
+  .carouselContainer {
+    padding: 0.5rem;
+  }
+}

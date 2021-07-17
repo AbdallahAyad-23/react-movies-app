@@ -1,0 +1,80 @@
+.img {
+  min-width: 100%;
+  width: 100%;
+  /* height: 100%; */
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.backdrop,
+.poster {
+  /* background-color: #202124;
+  width: 100%; */
+}
+/* .backdrop {
+  height: 163px;
+}
+
+.poster {
+  height: 344px;
+} */
+
+.imgContainer {
+  background-color: #202124;
+  width: 100%;
+  padding-top: 150.27%;
+  position: relative;
+}
+.backdrop {
+  padding-top: 56.285%;
+}
+.episodeImg {
+  padding-top: 56.4%;
+}
+.broken {
+  /* padding-top: 150.27%; */
+  position: relative;
+}
+.broken img {
+  display: none;
+}
+.broken svg {
+  position: absolute;
+  color: white;
+  top: calc(50% - 25px);
+  left: calc(50% - 25px);
+  font-size: 50px;
+}
+
+.imgContainer:hover,
+.imgContainer:active {
+  transform: scale(1.01);
+  cursor: pointer;
+}
+.backdrop:hover,
+.poster:hover,
+.episodeImg:hover {
+  cursor: default;
+  transform: none;
+}
+.name,
+.character {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 400;
+  font-family: "Roboto";
+}
+.name {
+  margin: 7px 0;
+}
+.character {
+  color: #525558;
+}
+.Container {
+  min-width: 100%;
+  width: 100%;
+  /* height: 100%; */
+}

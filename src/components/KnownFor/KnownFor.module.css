@@ -1,0 +1,17 @@
+.knownFor {
+  display: grid;
+  grid-gap: 20px 10px;
+  grid-row: 2/3;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+@media (max-width: 1024px) {
+  .knownFor {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .knownFor {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

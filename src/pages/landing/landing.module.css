@@ -1,0 +1,18 @@
+.landing {
+  grid-column: 2/3;
+  background: rgb(20, 20, 20);
+  font-family: Roboto;
+  font-size: 3rem;
+  font-family: "Fredoka One", cursive;
+  font-weight: bold;
+}
+@media (min-width: 1201px) {
+  .landing {
+    min-height: 100vh;
+  }
+}
+@media (max-width: 1200px) {
+  .landing {
+    grid-column: 1/3;
+  }
+}

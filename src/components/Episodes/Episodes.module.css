@@ -1,0 +1,65 @@
+.episodesContainer {
+  margin: 25px 40px;
+}
+
+.dropdown select {
+  padding: 0.2rem 0.5rem;
+  font-size: 0.9rem;
+  width: 115px;
+  background-color: #202124;
+  color: white;
+  border: none;
+}
+.episodes {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.episode {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0.3rem;
+  margin-bottom: 20px;
+  font-family: Roboto;
+}
+
+.episodes .episodeName,
+.episodes .overview {
+  margin: 0;
+  color: white;
+  font-family: "Roboto";
+  margin-bottom: 10px;
+  font-weight: 400;
+}
+.episodeName {
+  font-size: 1.1rem;
+}
+.episodeName span {
+  color: #2296f3;
+}
+.overview {
+  flex: 1 0 auto;
+  font-size: 13px;
+}
+.date {
+  font-size: 15px;
+  margin: 0;
+  color: #80867f;
+}
+
+.episode img {
+  width: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 1024px) {
+  .episodes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .episodes {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

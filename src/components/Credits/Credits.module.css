@@ -1,0 +1,14 @@
+.list {
+  list-style: none;
+  width: 100%;
+  padding: 0;
+}
+.listItem {
+  display: flex;
+  background-color: #202124;
+  margin-bottom: 1px;
+}
+.listItem p:first-child {
+  width: 100px;
+  padding: 0 2rem;
+}
