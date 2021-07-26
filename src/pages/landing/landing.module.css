@@ -11,8 +11,3 @@
     min-height: 100vh;
   }
 }
-@media (max-width: 1200px) {
-  .landing {
-    grid-column: 1/3;
-  }
-}

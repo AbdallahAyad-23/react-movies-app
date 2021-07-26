@@ -1,132 +1,78 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import Card from "../Card/Card";
 import Img from "../Img/Img";
 import styles from "./Carousel.module.css";
 
 const Carousel = (props) => {
+  let scrollAmount = useRef();
   const history = useHistory();
-  const [slides, setSlides] = useState(props.num_of_slides);
-  const [boundaries, setBoundaries] = useState(() => {
-    return {
-      start: 0,
-      end: slides,
-      forwardVisiable: true,
-      backwardVisiable: false,
-    };
-  });
-  const handleResize = () => {
-    if (props.cast) {
-      if (window.innerWidth <= 769) {
-        setSlides(4);
-      } else if (window.innerWidth <= 1024) {
-        setSlides(5);
-      } else if (window.innerWidth >= 1025) {
-        setSlides(6);
-      }
-    } else {
-      if (window.innerWidth <= 769) {
-        setSlides(3);
-      } else if (window.innerWidth <= 1024) {
-        setSlides(4);
-      } else if (window.innerWidth >= 1025) {
-        setSlides(5);
-      }
+  const [forwardVisible, setForwardVisible] = useState(true);
+  const [backwardVisible, setBackwardVisible] = useState(false);
+  let sliders = useRef(null);
+
+  const scrollHandler = (e) => {
+    scrollAmount.current = sliders.current.scrollLeft;
+    if (sliders.current.scrollLeft > 0 && !backwardVisible) {
+      setBackwardVisible(true);
+    }
+    if (
+      sliders.current.scrollLeft + e.target.offsetWidth + 50 >=
+        e.target.scrollWidth &&
+      forwardVisible
+    ) {
+      setForwardVisible(false);
+    }
+    if (sliders.current.scrollLeft === 0 && backwardVisible) {
+      setBackwardVisible(false);
+    }
+    if (
+      sliders.current.scrollLeft + e.target.offsetWidth + 50 <
+        e.target.scrollWidth &&
+      !forwardVisible
+    ) {
+      setForwardVisible(true);
     }
   };
-  useEffect(() => {
-    handleResize();
-  }, []);
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  });
-  // const style = {
-  //   gridTemplateColumns: `15px repeat(${props.num_of_slides},${
-  //     1150 / props.num_of_slides
-  //   }px) 15px`,
-  // };
-  useEffect(() => {
-    setBoundaries((prevState) => {
-      let obj = null;
-      if (props.arr.length <= slides) {
-        obj = { forwardVisiable: false, backwardVisiable: false };
-      } else {
-        obj = { forwardVisiable: true, backwardVisiable: false };
-      }
-      return {
-        start: 0,
-        end: slides,
-        ...obj,
-      };
-    });
-  }, [history.location.pathname, props.arr.length, slides]);
+  const forwardHandler = (e) => {
+    let scrollPerClick = sliders.current.offsetWidth;
 
-  const forwardHandler = () => {
-    setBoundaries((prevState) => {
-      if (prevState.end + slides > props.arr.length) {
-        const diff = props.arr.length - prevState.end;
-        return {
-          start: prevState.start + diff,
-          end: prevState.end + diff,
-          forwardVisiable: false,
-          backwardVisiable: true,
-        };
-      }
-
-      const end = prevState.end + slides;
-      if (end === props.arr.length) {
-        return {
-          ...prevState,
-          start: prevState.start + slides,
-          end: prevState.end + slides,
-          forwardVisiable: false,
-          backwardVisiable: true,
-        };
-      }
-      return {
-        ...prevState,
-        start: prevState.start + slides,
-        end: prevState.end + slides,
-        backwardVisiable: true,
-        forwardVisiable: true,
-      };
+    if (
+      scrollAmount.current <=
+      sliders.current.scrollWidth - sliders.current.offsetWidth
+    ) {
+      sliders.current.scrollTo({
+        top: 0,
+        left: (scrollAmount.current += scrollPerClick),
+      });
+    }
+  };
+  const backwardHandler = (e) => {
+    let scrollPerClick = sliders.current.offsetWidth;
+    sliders.current.scrollTo({
+      top: 0,
+      left: (scrollAmount.current -= scrollPerClick),
     });
   };
-  const backwardHandler = () => {
-    setBoundaries((prevState) => {
-      if (prevState.start - slides < 0 && prevState.start !== 0) {
-        return {
-          ...prevState,
-          backwardVisiable: false,
-          forwardVisiable: true,
-          start: 0,
-          end: slides,
-        };
-      }
-      const start = prevState.start - slides;
-      const end = prevState.end - slides;
-      if (start === 0) {
-        return {
-          ...prevState,
-          start: start,
-          end: end,
-          backwardVisiable: false,
-          forwardVisiable: true,
-        };
-      }
-      return {
-        ...prevState,
-        start: prevState.start - slides,
-        end: prevState.end - slides,
-        forwardVisiable: true,
-      };
-    });
-  };
+  useEffect(() => {
+    scrollAmount.current = 0;
+    sliders.current.scrollLeft = 0;
+    if (
+      sliders.current.scrollLeft + sliders.current.offsetWidth + 50 >=
+        sliders.current.scrollWidth &&
+      forwardVisible
+    ) {
+      setForwardVisible(false);
+    } else if (
+      sliders.current.scrollLeft + sliders.current.offsetWidth + 50 <
+        sliders.current.scrollWidth &&
+      !forwardVisible
+    ) {
+      setForwardVisible(true);
+    }
+  }, [history.location.pathname.split("/")[2], props.arr]);
   return (
-    <div className={styles.carouselContainer}>
+    <div className={styles.carousel}>
       <h1 className={styles.title}>
         {props.title}{" "}
         {props.explore && (
@@ -141,28 +87,16 @@ const Carousel = (props) => {
         )}
       </h1>
       <div
-        className={`${styles.sliderContainer} ${
-          props.cast ? styles.cast : styles.regular
-        }`}
+        className={`${styles.carouselbox} ${props.cast && styles.cast}`}
+        ref={sliders}
+        onScroll={(e) => scrollHandler(e)}
       >
-        <button
-          className={styles.backwardButton}
-          style={
-            boundaries.backwardVisiable
-              ? { visibility: "visible" }
-              : { visibility: "hidden" }
-          }
-          onClick={backwardHandler}
-        >
-          <span className="material-icons">arrow_back_ios</span>
-        </button>
-
         {!props.cast
-          ? props.arr.slice(boundaries.start, boundaries.end).map((obj) => {
+          ? props.arr.map((obj) => {
               const newObj = { ...obj, media_type: props.media };
-              return <Card {...newObj} key={obj.id} height="350px" />;
+              return <Card {...newObj} key={obj.id} />;
             })
-          : props.arr.slice(boundaries.start, boundaries.end).map((obj) => {
+          : props.arr.map((obj) => {
               const newObj = { ...obj, media_type: props.media };
               return (
                 <NavLink to={`/person/${obj.id}`} key={obj.id}>
@@ -175,19 +109,27 @@ const Carousel = (props) => {
                 </NavLink>
               );
             })}
-
+      </div>
+      {backwardVisible && (
         <button
-          className={styles.forwardButton}
+          className={`${styles.switchLeft} ${
+            props.cast && styles.castBackward
+          }`}
+          onClick={backwardHandler}
+        >
+          <span className="material-icons">arrow_back_ios</span>
+        </button>
+      )}
+      {forwardVisible && (
+        <button
+          className={`${styles.switchRight} ${
+            props.cast && styles.castForward
+          }`}
           onClick={forwardHandler}
-          style={
-            boundaries.forwardVisiable
-              ? { visibility: "visible" }
-              : { visibility: "hidden" }
-          }
         >
           <span className="material-icons">arrow_forward_ios</span>
         </button>
-      </div>
+      )}
     </div>
   );
 };

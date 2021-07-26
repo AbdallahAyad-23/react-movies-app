@@ -50,7 +50,7 @@ body {
 
 @media (min-width: 1201px) {
   .App {
-    grid-template-columns: [col1-start] 90px [col1-end] 1fr [col2-start];
+    grid-template-columns: [col1-start] 90px [col1-end] calc(100% - 90px) [col2-start];
   }
   .search-container {
     width: calc(100% - 90px);
@@ -64,6 +64,9 @@ body {
     left: 0;
     height: 60px;
   }
+  .App {
+    display: block;
+  }
   body {
     padding-bottom: 50px;
     background: #141414;
@@ -72,7 +75,6 @@ body {
     padding: 1.1rem;
   }
   .close-search {
-    /* top: calc(50% - 16.5px); */
     top: calc(30px - 16px);
   }
 }

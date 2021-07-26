@@ -73,7 +73,7 @@
   }
 }
 @media (max-width: 769px) {
-  /* .overview {
-    margin-left: 27px;
-  } */
+  .overview {
+    margin: 1rem;
+  }
 }

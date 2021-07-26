@@ -1,50 +1,76 @@
-.sliderContainer {
-  display: grid;
-  grid-gap: 0 7px;
-  color: white;
+.carousel {
+  padding: 1rem 40px;
   font-size: 1rem;
-  /* position: relative; */
-}
-.sliderContainer button {
-  background: transparent;
-  outline: none;
-  color: rgba(255, 255, 255, 0.589);
-  padding: 0;
-}
-.cast {
-  grid-template-columns: 20px repeat(6, 1fr) 20px;
+  position: relative;
+  width: 100%;
 }
 
-.regular {
-  grid-template-columns: 20px repeat(5, 1fr) 20px;
-}
-.sliderContainer button:hover,
-.sliderContainer button:active {
+.carousel .switchLeft,
+.carousel .switchRight {
+  color: white;
+  font-weight: bold;
+  width: 50px;
   cursor: pointer;
-}
-.backwardButton {
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  outline: none;
   border: none;
-}
-.forwardButton {
-  right: 0;
+  font-size: 25px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  border: none;
+  justify-content: center;
+  font-family: sans-serif;
+  top: calc(36px + 16px + 16.08px + 16.08px);
+  bottom: calc(60.766px + 16px);
+  position: absolute;
+  background: rgba(0, 0, 0, 0.25);
 }
-.carouselContainer {
+
+.carousel .switchLeft {
+  left: 40px;
+}
+
+.carousel .switchRight {
+  right: 40px;
+}
+
+.carousel .switchLeft:hover,
+.carousel .switchLeft:active,
+.carousel .switchRight:hover,
+.carousel .switchRight:active {
+  background: rgba(0, 0, 0, 0.5);
+}
+.carousel .castForward,
+.carousel .castBackward {
+  bottom: calc(21px + 21px + 14px + 1rem);
+}
+.carouselbox {
+  overflow: hidden;
+  width: 100%;
+  scroll-behavior: smooth;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-  padding: 1rem;
+  gap: 10px;
+  /* border: 1px solid red; */
+  /* align-items: center; */
 }
+.carouselbox > a {
+  scroll-snap-align: end;
+  scroll-snap-stop: always;
+  overflow: hidden;
+  min-width: calc(calc(100% - 40px) / 5);
+}
+.cast > a {
+  min-width: calc(calc(100% - 50px) / 6);
+}
+
+.carouselbox::-webkit-scrollbar {
+  display: none;
+}
+
 .title {
   align-self: flex-start;
-  padding-left: 27px;
   color: white;
   font-size: 1.5rem;
   font-weight: 400;
@@ -63,25 +89,28 @@
 }
 
 @media (max-width: 1024px) {
-  .cast {
-    grid-template-columns: 20px repeat(5, 1fr) 20px;
+  .carouselbox > a {
+    min-width: calc(calc(100% - 30px) / 4);
   }
-
-  .regular {
-    grid-template-columns: 20px repeat(4, 1fr) 20px;
+  .cast > a {
+    min-width: calc(calc(100% - 40px) / 5);
   }
 }
 @media (max-width: 769px) {
-  .cast {
-    grid-template-columns: 20px repeat(4, 1fr) 20px;
+  .carousel {
+    padding: 1rem;
   }
 
-  .regular {
-    grid-template-columns: 20px repeat(3, 1fr) 20px;
+  .carousel .switchLeft,
+  .carousel .switchRight {
+    display: none;
   }
 }
 @media (max-width: 640px) {
-  .carouselContainer {
-    padding: 0.5rem;
+  .carouselbox > a {
+    min-width: calc(calc(100% - 20px) / 3);
+  }
+  .cast > a {
+    min-width: calc(calc(100% - 30px) / 4);
   }
 }

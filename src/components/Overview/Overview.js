@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./Overview.module.css";
 import Carousel from "../Carousel/Carousel";
 const Overview = (props) => {
+  console.log(props.credits.cast);
   let director = null;
   let overview = null;
   if (props.media === "movie") {
@@ -192,7 +193,6 @@ const Overview = (props) => {
             media="movie"
             title="Cast"
             arr={props.credits.cast}
-            num_of_slides={6}
             cast={true}
           />
         </div>
