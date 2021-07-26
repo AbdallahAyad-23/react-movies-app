@@ -9,10 +9,10 @@
   transition: all 0.3s ease-in-out;
 }
 
-.backdrop,
+/*.backdrop,
 .poster {
-  /* background-color: #202124;
-  width: 100%; */
+  background-color: #202124;
+  width: 100%; 
 }
 /* .backdrop {
   height: 163px;

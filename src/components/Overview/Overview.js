@@ -20,29 +20,33 @@ const Overview = (props) => {
               <p>{props.release_date}</p>
             </li>
           )}
-          <li className={styles.listItem}>
-            <p>Director</p>
-            <p>{director.name}</p>
-          </li>
-          <li className={styles.listItem}>
-            <p>Genre</p>
-            <p className={styles.genres}>
-              {props.genres.map((obj, idx) => {
-                if (idx === props.genres.length - 1) {
+          {director && (
+            <li className={styles.listItem}>
+              <p>Director</p>
+              <p>{director.name}</p>
+            </li>
+          )}
+          {props.genres.length > 0 && (
+            <li className={styles.listItem}>
+              <p>Genre</p>
+              <p className={styles.genres}>
+                {props.genres.map((obj, idx) => {
+                  if (idx === props.genres.length - 1) {
+                    return (
+                      <span className={styles.genre} key={obj.name}>
+                        {obj.name}
+                      </span>
+                    );
+                  }
                   return (
                     <span className={styles.genre} key={obj.name}>
-                      {obj.name}
+                      {obj.name + ","}
                     </span>
                   );
-                }
-                return (
-                  <span className={styles.genre} key={obj.name}>
-                    {obj.name + ","}
-                  </span>
-                );
-              })}
-            </p>
-          </li>
+                })}
+              </p>
+            </li>
+          )}
           {props.spoken_languages.length && (
             <li className={styles.listItem}>
               <p>Language</p>
@@ -69,7 +73,7 @@ const Overview = (props) => {
               <p>{props.status}</p>
             </li>
           )}
-          {props.production_companies.length && (
+          {props.production_companies.length > 0 && (
             <li className={styles.listItem}>
               <p>Production</p>
               <p className={styles.production}>
