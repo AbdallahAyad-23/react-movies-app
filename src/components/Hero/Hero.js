@@ -34,7 +34,7 @@ const Hero = (props) => {
           <span>{date}</span>
           {props.runtime && <span>{props.runtime} min</span>}
         </div>
-        <p>{`${props.overview.substring(0, 250)}...`}</p>
+        {props.overview && <p>{`${props.overview.substring(0, 250)}...`}</p>}
         {props.video && (
           <button
             className={styles.watchTrailerButton}
